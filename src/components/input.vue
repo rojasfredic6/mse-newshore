@@ -1,12 +1,24 @@
 <template lang="pug">
 .search
   .background-search
-  input.input-search(type="text", placeholder="Search")
+  input.input-search(type="text", placeholder="Search", v-model="search", @keyup="typing()")
 </template>
 
 <script>
+import { bus } from "@/main.js";
+
 export default {
   name: "Input",
+  data() {
+    return {
+      search: "",
+    };
+  },
+  methods: {
+    typing() {
+      bus.$emit("searchInput", this.search);
+    },
+  },
 };
 </script>
 
@@ -17,7 +29,6 @@ export default {
   width 80%
   height 36px
   position relative
-  z-index 1
   @media screen and (min-width: 768px)
     height 82px
   @media screen and (min-width: 1440px)
@@ -38,7 +49,7 @@ export default {
     border-bottom 1px solid white
     outline none
     position absolute
-    z-index 5
+    z-index 0
     color #FFFFFF
     font-family: Grenze;
     font-style: normal;

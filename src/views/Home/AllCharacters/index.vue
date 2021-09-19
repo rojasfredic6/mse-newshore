@@ -1,12 +1,12 @@
 <template lang="pug">
-.students
+.allCharacters
   input-search
-  SelectSort
+  select-sort
   .main-title 
     img.main-title-background(src="@/assets/images/title-bg.png")
-    p {{ houseStudents[0].house}}
-  .students-group
-    InfoCard(v-for="(card, index) in studentsByHouse" :key="card[index]" :characterInfo="card")
+    p All Characters 
+  .characters-group
+    InfoCard(v-for="(card, index) in filterCharacters" :key="card[index]" :characterInfo="card")
 </template>
 
 <script>
@@ -15,34 +15,32 @@ import InfoCard from "@/components/infoCard.vue";
 import SelectSort from "@/components/select.vue";
 import { bus } from "@/main.js";
 export default {
-  name: "Students",
+  name: "AllCharacters",
   components: {
     InputSearch,
     InfoCard,
     SelectSort,
   },
-  created() {
-    bus.$on("sendStudentData", (data) => (this.houseStudents = data));
-    bus.$on("searchInput", (data) => (this.inputTexto = data));
-    bus.$on("sortValue", (data) => (this.sortValue = data));
-  },
   data() {
     return {
-      houseStudents: "",
       inputTexto: "",
       sortValue: "",
     };
   },
+  created() {
+    bus.$on("searchInput", (data) => (this.inputTexto = data));
+    bus.$on("sortValue", (data) => (this.sortValue = data));
+  },
+  inject: ["mseInfo"],
   computed: {
-    studentsByHouse() {
+    filterCharacters() {
       let staff;
-
       if (this.sortValue === "Name") {
-        staff = Object.values(this.houseStudents).sort(this.sortByName);
+        staff = Object.values(this.mseInfo.datos).sort(this.sortByName);
       } else if (this.sortValue === "Last Name") {
-        staff = Object.values(this.houseStudents).sort(this.sortByLastName);
+        staff = Object.values(this.mseInfo.datos).sort(this.sortByLastName);
       } else {
-        staff = Object.values(this.houseStudents);
+        staff = Object.values(this.mseInfo.datos);
       }
 
       if (this.inputTexto.length !== 0) {
@@ -86,7 +84,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.students
+.allCharacters
   display grid
   grid-template-columns 1fr
   grid-auto-rows minmax(50px, max-content)
@@ -120,7 +118,7 @@ export default {
       @media screen and (min-width: 768px)
         font-size 72px
         top 80px
-  & .students-group
+  & .characters-group
     padding-bottom 20px
     @media screen and (min-width: 1440px)
       display grid

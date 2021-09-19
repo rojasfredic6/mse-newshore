@@ -1,11 +1,10 @@
 <template lang="pug">
 .houses
-  input-search
   .main-title 
     img.main-title-background(src="@/assets/images/title-bg.png")
     p Houses 
   .houses-group
-    house(v-for="h in 4" :key="h")
+    house(v-for="(h,index) in housesAndMembersCount" :key="index" :houseData="h")
 </template>
 
 <script>
@@ -16,6 +15,25 @@ export default {
   components: {
     InputSearch,
     House,
+  },
+  inject: ["mseInfo"],
+  computed: {
+    housesAndMembersCount() {
+      let Gryffindor = Object.values(this.mseInfo.datos).filter(
+        (h) => h.house === "Gryffindor"
+      );
+      let Slytherin = Object.values(this.mseInfo.datos).filter(
+        (h) => h.house === "Slytherin"
+      );
+      let Hufflepuff = Object.values(this.mseInfo.datos).filter(
+        (h) => h.house === "Hufflepuff"
+      );
+      let RavenClaw = Object.values(this.mseInfo.datos).filter(
+        (h) => h.house === "Ravenclaw"
+      );
+
+      return [Gryffindor, Slytherin, Hufflepuff, RavenClaw];
+    },
   },
 };
 </script>
@@ -28,7 +46,7 @@ export default {
   justify-items center
   align-items start
   @media screen and (min-width: 1440px)
-    grid-template-rows 90px 1fr
+    grid-template-rows 1fr
   & .main-title
     display grid
     position relative

@@ -3,6 +3,32 @@
   router-view
 </template>
 
+<script>
+import { api } from "@/api/index.js";
+
+export default {
+  name: "App",
+  data() {
+    return {
+      datos: "",
+    };
+  },
+  created() {
+    api().then((response) => (this.datos = response.data));
+  },
+  provide() {
+    const mseInfo = {};
+
+    Object.defineProperty(mseInfo, "datos", {
+      enumerable: true,
+      get: () => this.datos,
+    });
+
+    return { mseInfo };
+  },
+};
+</script>
+
 <style lang="stylus">
 @import './assets/style/_variables.styl';
 

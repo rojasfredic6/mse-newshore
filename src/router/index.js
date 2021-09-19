@@ -18,11 +18,25 @@ const routes = [
           ),
       },
       {
-        path: "students",
+        path: "students/:house",
         name: "Students",
         component: () =>
           import(
-            /* webpackChunkName: "Staff" */ "@/views/Home/Students/index.vue"
+            /* webpackChunkName: "Students" */ "@/views/Home/Students/index.vue"
+          ),
+      },
+      {
+        path: "staff",
+        name: "Staff",
+        component: () =>
+          import(/* webpackChunkName: "Staff"*/ "@/views/Home/Staff/index.vue"),
+      },
+      {
+        path: "allCharacters",
+        name: "AllCharacters",
+        component: () =>
+          import(
+            /* webpackChunkName: "All"*/ "@/views/Home/AllCharacters/index.vue"
           ),
       },
     ],

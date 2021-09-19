@@ -1,20 +1,36 @@
 <template lang="pug">
 .house-container
-  .house-container-logo
-    img.house-logo(src="@/assets/images/Hufflepuf.png")
-  .house-container-info
-    p.quantity 100
+  .house-container-logo(:class="'logo' + houseData[0].house")
+    img.house-logo(:src="require('../assets/images/' + houseData[0].house + '.png')")
+  .house-container-info(@click="toHouseStudents(houseData[0].house, )")
+    p.quantity {{ houseData.length }}
     p.type Members
-  p Hufflepuff
+  p {{ houseData[0].house }}
 </template>
 
 <script>
+import { bus } from "@/main.js";
 export default {
   name: "House",
+  props: {
+    houseData: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  methods: {
+    toHouseStudents(house) {
+      this.$router
+        .push({ path: `students/${house.toLowerCase()}` })
+        .then(() => bus.$emit("sendStudentData", this.houseData));
+    },
+  },
 };
 </script>
 
 <style lang="stylus">
+@import '../assets/style/_variables.styl';
+
 .house-container
   display grid
   min-width 163px
@@ -43,7 +59,6 @@ export default {
   & .house-container-logo
     width 163px
     height 163px
-    background-color #E3A900
     border-radius 100%
     @media screen and (min-width: 768px)
       width 371px
@@ -63,6 +78,7 @@ export default {
         max-height 301px
 
 .house-container-info
+  cursor pointer
   width 163px
   height 163px
   display none
