@@ -1,7 +1,7 @@
 <template lang="pug">
 .Error-container
   img(src="@/assets/images/mapa-del-merodeador.png" alt="mapa del meriodador")
-  p Parece que estas perdido, merodiador!
+  p Did you got lost?!
 </template>
 
 <script>
