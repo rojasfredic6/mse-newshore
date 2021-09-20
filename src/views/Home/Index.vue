@@ -12,8 +12,6 @@
           p(@click="goTo('Staff')") Staff
         li
           p(@click="goTo('AllCharacters')") All Characters
-        li
-          p Repo Info
   .home-main
     router-view
   .modal-menu(v-show="modal")
@@ -24,8 +22,6 @@
           p(@click="goFromModal('Staff')") Staff
         li
           p(@click="goFromModal('AllCharacters')") All Characters
-        li
-          p Repo Info
 </template>
 
 <script>
@@ -78,7 +74,7 @@ export default {
       display grid
       & .header-nav-list
         display grid
-        grid-template-columns repeat(4, 1fr)
+        grid-template-columns repeat(3, 1fr)
         list-style none
         font-family: Grenze Gotisch;
         font-style: normal;

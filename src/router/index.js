@@ -39,16 +39,13 @@ const routes = [
             /* webpackChunkName: "All"*/ "@/views/Home/AllCharacters/index.vue"
           ),
       },
+      {
+        path: "*",
+        name: "Error404",
+        component: () =>
+          import(/* webpackChunkName : "Error" */ "@/views/Error/Index.vue"),
+      },
     ],
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About/Index.vue"),
   },
 ];
 
